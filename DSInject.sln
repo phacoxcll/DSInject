@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSInject", "DSInject\DSInject.csproj", "{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Beta|Any CPU = Beta|Any CPU
+		Beta|x64 = Beta|x64
+		Beta|x86 = Beta|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Minor release|Any CPU = Minor release|Any CPU
+		Minor release|x64 = Minor release|x64
+		Minor release|x86 = Minor release|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		Revision release|Any CPU = Revision release|Any CPU
+		Revision release|x64 = Revision release|x64
+		Revision release|x86 = Revision release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Beta|x64.ActiveCfg = Beta|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Beta|x64.Build.0 = Beta|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Beta|x86.ActiveCfg = Beta|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Beta|x86.Build.0 = Beta|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Debug|x64.ActiveCfg = Debug|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Debug|x64.Build.0 = Debug|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Debug|x86.ActiveCfg = Debug|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Debug|x86.Build.0 = Debug|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Minor release|Any CPU.ActiveCfg = Minor release|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Minor release|Any CPU.Build.0 = Minor release|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Minor release|x64.ActiveCfg = Minor release|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Minor release|x64.Build.0 = Minor release|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Minor release|x86.ActiveCfg = Minor release|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Minor release|x86.Build.0 = Minor release|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Release|x64.ActiveCfg = Release|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Release|x64.Build.0 = Release|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Release|x86.ActiveCfg = Release|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Release|x86.Build.0 = Release|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Revision release|Any CPU.ActiveCfg = Revision release|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Revision release|Any CPU.Build.0 = Revision release|Any CPU
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Revision release|x64.ActiveCfg = Revision release|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Revision release|x64.Build.0 = Revision release|x64
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Revision release|x86.ActiveCfg = Revision release|x86
+		{1BEBD8E1-3FD3-493C-BD91-3116DE2790F3}.Revision release|x86.Build.0 = Revision release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3172D3CD-A2AE-4DC2-B911-5B906432BA76}
+	EndGlobalSection
+EndGlobal
