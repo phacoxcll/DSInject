@@ -466,6 +466,7 @@
             this.textBoxLayoutsDir.Name = "textBoxLayoutsDir";
             this.textBoxLayoutsDir.Size = new System.Drawing.Size(518, 20);
             this.textBoxLayoutsDir.TabIndex = 21;
+            this.textBoxLayoutsDir.Visible = false;
             // 
             // checkBoxLayouts
             // 
@@ -478,6 +479,7 @@
             this.checkBoxLayouts.TabIndex = 20;
             this.checkBoxLayouts.Text = "Layouts directory:";
             this.checkBoxLayouts.UseVisualStyleBackColor = true;
+            this.checkBoxLayouts.Visible = false;
             // 
             // buttonLayoutsDir
             // 
@@ -488,6 +490,7 @@
             this.buttonLayoutsDir.TabIndex = 19;
             this.buttonLayoutsDir.Text = "...";
             this.buttonLayoutsDir.UseVisualStyleBackColor = true;
+            this.buttonLayoutsDir.Visible = false;
             // 
             // labelBy
             // 
@@ -513,7 +516,7 @@
             this.panelLoadedBase.BackColor = System.Drawing.SystemColors.Control;
             this.panelLoadedBase.BackgroundImage = global::DSInject.Properties.Resources.x_mark_16;
             this.panelLoadedBase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panelLoadedBase.Location = new System.Drawing.Point(120, 194);
+            this.panelLoadedBase.Location = new System.Drawing.Point(6, 191);
             this.panelLoadedBase.Name = "panelLoadedBase";
             this.panelLoadedBase.Size = new System.Drawing.Size(20, 20);
             this.panelLoadedBase.TabIndex = 16;
@@ -521,11 +524,11 @@
             // labelLoadedBase
             // 
             this.labelLoadedBase.AutoSize = true;
-            this.labelLoadedBase.Location = new System.Drawing.Point(146, 191);
+            this.labelLoadedBase.Location = new System.Drawing.Point(32, 191);
             this.labelLoadedBase.Name = "labelLoadedBase";
-            this.labelLoadedBase.Size = new System.Drawing.Size(69, 26);
+            this.labelLoadedBase.Size = new System.Drawing.Size(34, 13);
             this.labelLoadedBase.TabIndex = 15;
-            this.labelLoadedBase.Text = "Base loaded:\r\nSVN:";
+            this.labelLoadedBase.Text = "Base:";
             // 
             // panelValidKey
             // 

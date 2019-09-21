@@ -79,7 +79,7 @@ namespace DSInject
                 panelValidKey.BackgroundImage = Properties.Resources.x_mark_16;
             }
 
-            labelLoadedBase.Text = "Base loaded: " + injector.LoadedBase;
+            labelLoadedBase.Text = "Base: " + injector.LoadedBase;
             if (injector.BaseIsLoaded)
                 panelLoadedBase.BackgroundImage = global::DSInject.Properties.Resources.checkmark_16;
 
@@ -975,7 +975,7 @@ namespace DSInject
 
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                labelLoadedBase.Text = "Base loaded: Wait...";
+                labelLoadedBase.Text = "Base: Wait...";
                 panelLoadedBase.BackgroundImage = global::DSInject.Properties.Resources.x_mark_16;
                 this.Update();
 
@@ -984,7 +984,7 @@ namespace DSInject
                 Cll.Log.WriteLine("Loading base.");
                 if (injector.LoadBase(textBoxBaseFrom.Text))
                 {
-                    labelLoadedBase.Text = "Base loaded: " + injector.LoadedBase;
+                    labelLoadedBase.Text = "Base: " + injector.LoadedBase;
                     panelLoadedBase.BackgroundImage = global::DSInject.Properties.Resources.checkmark_16;
                     return true;
                 }

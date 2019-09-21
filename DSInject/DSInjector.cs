@@ -11,7 +11,7 @@ namespace DSInject
 {
     public class DSInjector
     {
-        public const string Release = "1.0 beta"; //CllVersionReplace "major.minor stability"
+        public const string Release = "1.1 debug"; //CllVersionReplace "major.minor stability"
 
         public string BasePath;
         public string ShortName;
@@ -369,54 +369,60 @@ namespace DSInject
                 uint hash = Cll.Security.ComputeCRC32(fs);
                 fs.Close();
 
-                if (hash == VCNDS.YoshiIslandDS.HashCRC32)
-                    return VCNDS.YoshiIslandDS;
-                else if (hash == VCNDS.YoshiTouchAndGo.HashCRC32)
-                    return VCNDS.YoshiTouchAndGo;
+                if (hash == VCNDS.BigBrainAcademy.HashCRC32)
+                    return VCNDS.BigBrainAcademy;
                 else if (hash == VCNDS.MarioKartDS.HashCRC32)
                     return VCNDS.MarioKartDS;
+                else if (hash == VCNDS.BrainAge.HashCRC32)
+                    return VCNDS.BrainAge;
                 else if (hash == VCNDS.PartnersInTime.HashCRC32)
                     return VCNDS.PartnersInTime;
                 else if (hash == VCNDS.StarFoxCommand.HashCRC32)
                     return VCNDS.StarFoxCommand;
-                else if (hash == VCNDS.DKJungleClimber.HashCRC32)
-                    return VCNDS.DKJungleClimber;
                 else if (hash == VCNDS.KirbySqueakSquad.HashCRC32)
                     return VCNDS.KirbySqueakSquad;
-                else if (hash == VCNDS.MarioPartyDS.HashCRC32)
-                    return VCNDS.MarioPartyDS;
-                else if (hash == VCNDS.StyleSavvy.HashCRC32)
-                    return VCNDS.StyleSavvy;
-                else if (hash == VCNDS.PhantomHourglass.HashCRC32)
-                    return VCNDS.PhantomHourglass;
-                else if (hash == VCNDS.MetroidPrimeHunters.HashCRC32)
-                    return VCNDS.MetroidPrimeHunters;
+                else if (hash == VCNDS.FEShadowDragon.HashCRC32)
+                    return VCNDS.FEShadowDragon;
+                else if (hash == VCNDS.DKJungleClimber.HashCRC32)
+                    return VCNDS.DKJungleClimber;
                 else if (hash == VCNDS.WarioMasterOfDisguise.HashCRC32)
                     return VCNDS.WarioMasterOfDisguise;
-                else if (hash == VCNDS.PMDBlueRescueTeam.HashCRC32)
-                    return VCNDS.PMDBlueRescueTeam;
-                else if (hash == VCNDS.PMDExplorersOfSky.HashCRC32)
-                    return VCNDS.PMDExplorersOfSky;
-                else if (hash == VCNDS.KirbyMassAttack.HashCRC32)
-                    return VCNDS.KirbyMassAttack;
-                else if (hash == VCNDS.PRGuardianSigns.HashCRC32)
-                    return VCNDS.PRGuardianSigns;
-                else if (hash == VCNDS.SuperMario64DS.HashCRC32)
-                    return VCNDS.SuperMario64DS;
                 else if (hash == VCNDS.MarioVsDK2.HashCRC32)
                     return VCNDS.MarioVsDK2;
-                else if (hash == VCNDS.ACWildWorld.HashCRC32)
-                    return VCNDS.ACWildWorld;
+                else if (hash == VCNDS.MetroidPrimeHunters.HashCRC32)
+                    return VCNDS.MetroidPrimeHunters;
+                else if (hash == VCNDS.PhantomHourglass.HashCRC32)
+                    return VCNDS.PhantomHourglass;
                 else if (hash == VCNDS.SpiritTracks.HashCRC32)
                     return VCNDS.SpiritTracks;
+                else if (hash == VCNDS.ACWildWorld.HashCRC32)
+                    return VCNDS.ACWildWorld;
+                else if (hash == VCNDS.SuperMario64DS.HashCRC32)
+                    return VCNDS.SuperMario64DS;
+                else if (hash == VCNDS.KirbyMassAttack.HashCRC32)
+                    return VCNDS.KirbyMassAttack;
+                else if (hash == VCNDS.NewSuperMarioBros.HashCRC32)
+                    return VCNDS.NewSuperMarioBros;
+                else if (hash == VCNDS.PokemonRangerU.HashCRC32)
+                    return VCNDS.PokemonRangerU;
+                else if (hash == VCNDS.PokemonRangerE.HashCRC32)
+                    return VCNDS.PokemonRangerE;
+                else if (hash == VCNDS.PokemonRangerJ.HashCRC32)
+                    return VCNDS.PokemonRangerJ;
+                else if (hash == VCNDS.MarioPartyDS.HashCRC32)
+                    return VCNDS.MarioPartyDS;
+                else if (hash == VCNDS.StyleSavvyU.HashCRC32)
+                    return VCNDS.StyleSavvyU;
                 else if (hash == VCNDS.MarioHoops3On3.HashCRC32)
                     return VCNDS.MarioHoops3On3;
                 else if (hash == VCNDS.AdvanceWarsDualStrike.HashCRC32)
                     return VCNDS.AdvanceWarsDualStrike;
-                else if (hash == VCNDS.FEShadowDragon.HashCRC32)
-                    return VCNDS.FEShadowDragon;
-                else if (hash == VCNDS.Picross3D.HashCRC32)
-                    return VCNDS.Picross3D;
+                else if (hash == VCNDS.PokemonRanger3J.HashCRC32)
+                    return VCNDS.PokemonRanger3J;
+                else if (hash == VCNDS.PokemonRanger3U.HashCRC32)
+                    return VCNDS.PokemonRanger3U;
+                else if (hash == VCNDS.StyleSavvyJ.HashCRC32)
+                    return VCNDS.StyleSavvyJ;
                 else
                 {
                     Cll.Log.WriteLine("The base is valid but was not defined in the program code.");
