@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
@@ -11,7 +10,7 @@ namespace DSInject
 {
     public class DSInjector
     {
-        public const string Release = "1.1 debug"; //CllVersionReplace "major.minor stability"
+        public const string Release = "1.1.1 debug"; //CllVersionReplace "major.minor.revision stability"
 
         public string BasePath;
         public string ShortName;
@@ -262,8 +261,30 @@ namespace DSInject
                 XmlNode meta_product_code = xmlMeta.SelectSingleNode("menu/product_code");
                 XmlNode meta_title_id = xmlMeta.SelectSingleNode("menu/title_id");
                 XmlNode meta_group_id = xmlMeta.SelectSingleNode("menu/group_id");
+                XmlNode meta_longname_ja = xmlMeta.SelectSingleNode("menu/longname_ja");
                 XmlNode meta_longname_en = xmlMeta.SelectSingleNode("menu/longname_en");
+                XmlNode meta_longname_fr = xmlMeta.SelectSingleNode("menu/longname_fr");
+                XmlNode meta_longname_de = xmlMeta.SelectSingleNode("menu/longname_de");
+                XmlNode meta_longname_it = xmlMeta.SelectSingleNode("menu/longname_it");
+                XmlNode meta_longname_es = xmlMeta.SelectSingleNode("menu/longname_es");
+                XmlNode meta_longname_zhs = xmlMeta.SelectSingleNode("menu/longname_zhs");
+                XmlNode meta_longname_ko = xmlMeta.SelectSingleNode("menu/longname_ko");
+                XmlNode meta_longname_nl = xmlMeta.SelectSingleNode("menu/longname_nl");
+                XmlNode meta_longname_pt = xmlMeta.SelectSingleNode("menu/longname_pt");
+                XmlNode meta_longname_ru = xmlMeta.SelectSingleNode("menu/longname_ru");
+                XmlNode meta_longname_zht = xmlMeta.SelectSingleNode("menu/longname_zht");
+                XmlNode meta_shortname_ja = xmlMeta.SelectSingleNode("menu/shortname_ja");
                 XmlNode meta_shortname_en = xmlMeta.SelectSingleNode("menu/shortname_en");
+                XmlNode meta_shortname_fr = xmlMeta.SelectSingleNode("menu/shortname_fr");
+                XmlNode meta_shortname_de = xmlMeta.SelectSingleNode("menu/shortname_de");
+                XmlNode meta_shortname_it = xmlMeta.SelectSingleNode("menu/shortname_it");
+                XmlNode meta_shortname_es = xmlMeta.SelectSingleNode("menu/shortname_es");
+                XmlNode meta_shortname_zhs = xmlMeta.SelectSingleNode("menu/shortname_zhs");
+                XmlNode meta_shortname_ko = xmlMeta.SelectSingleNode("menu/shortname_ko");
+                XmlNode meta_shortname_nl = xmlMeta.SelectSingleNode("menu/shortname_nl");
+                XmlNode meta_shortname_pt = xmlMeta.SelectSingleNode("menu/shortname_pt");
+                XmlNode meta_shortname_ru = xmlMeta.SelectSingleNode("menu/shortname_ru");
+                XmlNode meta_shortname_zht = xmlMeta.SelectSingleNode("menu/shortname_zht");
 
                 app_title_id.InnerText = titleId;
                 app_group_id.InnerText = "0000" + id[5].ToString("X2") + id[6].ToString("X2");
@@ -271,8 +292,30 @@ namespace DSInject
                 meta_product_code.InnerText = "WUP-N-" + Rom.ProductCode;
                 meta_title_id.InnerText = titleId;
                 meta_group_id.InnerText = "0000" + id[5].ToString("X2") + id[6].ToString("X2");
+                meta_longname_ja.InnerText = LongName;
                 meta_longname_en.InnerText = LongName;
+                meta_longname_fr.InnerText = LongName;
+                meta_longname_de.InnerText = LongName;
+                meta_longname_it.InnerText = LongName;
+                meta_longname_es.InnerText = LongName;
+                meta_longname_zhs.InnerText = LongName;
+                meta_longname_ko.InnerText = LongName;
+                meta_longname_nl.InnerText = LongName;
+                meta_longname_pt.InnerText = LongName;
+                meta_longname_ru.InnerText = LongName;
+                meta_longname_zht.InnerText = LongName;
+                meta_shortname_ja.InnerText = ShortName;
                 meta_shortname_en.InnerText = ShortName;
+                meta_shortname_fr.InnerText = ShortName;
+                meta_shortname_de.InnerText = ShortName;
+                meta_shortname_it.InnerText = ShortName;
+                meta_shortname_es.InnerText = ShortName;
+                meta_shortname_zhs.InnerText = ShortName;
+                meta_shortname_ko.InnerText = ShortName;
+                meta_shortname_nl.InnerText = ShortName;
+                meta_shortname_pt.InnerText = ShortName;
+                meta_shortname_ru.InnerText = ShortName;
+                meta_shortname_zht.InnerText = ShortName;
 
                 XmlWriter app = XmlWriter.Create("base\\code\\app.xml", xmlSettings);
                 XmlWriter meta = XmlWriter.Create("base\\meta\\meta.xml", xmlSettings);
@@ -439,35 +482,45 @@ namespace DSInject
 
         private bool IsValidBase(string path)
         {
-            if (File.Exists(path + "\\code\\app.xml") &&
-                File.Exists(path + "\\code\\cos.xml") &&
-                File.Exists(path + "\\code\\hachihachi_ntr.rpx") &&
-                Directory.Exists(path + "\\content\\0010\\assets") &&
-                Directory.Exists(path + "\\content\\0010\\data") &&
-                File.Exists(path + "\\content\\0010\\configuration_cafe.json") &&
-                File.Exists(path + "\\content\\0010\\rom.zip") &&
-                File.Exists(path + "\\meta\\iconTex.tga") &&
-                File.Exists(path + "\\meta\\bootTvTex.tga") &&
-                File.Exists(path + "\\meta\\bootDrcTex.tga") &&
-                File.Exists(path + "\\meta\\meta.xml"))
-                return true;
-            else
+            bool valid = true;
+            string[] folders = {
+                path + "\\content\\0010\\assets",
+                path + "\\content\\0010\\data"
+            };
+            string[] files = {
+                path + "\\code\\app.xml",
+                path + "\\code\\cos.xml",
+                path + "\\code\\hachihachi_ntr.rpx",
+                path + "\\content\\0010\\configuration_cafe.json",
+                path + "\\content\\0010\\rom.zip",
+                path + "\\meta\\iconTex.tga",
+                path + "\\meta\\bootTvTex.tga",
+                path + "\\meta\\bootDrcTex.tga",
+                path + "\\meta\\meta.xml"
+            };
+
+            foreach (string folder in folders)
             {
-                Cll.Log.WriteLine("The base is invalid.");
-                Cll.Log.WriteLine("Some of the following files or folders are missing:");
-                Cll.Log.WriteLine(path + "\\code\\app.xml");
-                Cll.Log.WriteLine(path + "\\code\\cos.xml");
-                Cll.Log.WriteLine(path + "\\code\\hachihachi_ntr.rpx");
-                Cll.Log.WriteLine(path + "\\content\\0010\\assets");
-                Cll.Log.WriteLine(path + "\\content\\0010\\data");
-                Cll.Log.WriteLine(path + "\\content\\0010\\configuration_cafe.json");
-                Cll.Log.WriteLine(path + "\\content\\0010\\rom.zip");
-                Cll.Log.WriteLine(path + "\\meta\\iconTex.tga");
-                Cll.Log.WriteLine(path + "\\meta\\bootTvTex.tga");
-                Cll.Log.WriteLine(path + "\\meta\\bootDrcTex.tga");
-                Cll.Log.WriteLine(path + "\\meta\\meta.xml");
-                return false;
+                if (!Directory.Exists(folder))
+                {
+                    valid = false;
+                    Cll.Log.WriteLine("This folder is missing: \"" + folder + "\"");
+                }
             }
+
+            foreach (string file in files)
+            {
+                if (!File.Exists(file))
+                {
+                    valid = false;
+                    Cll.Log.WriteLine("This file is missing: \"" + file + "\"");
+                }
+            }
+
+            if (!valid)
+                Cll.Log.WriteLine("The base is invalid.");
+
+            return valid;
         }
 
         private bool IsValidEncryptedBase(string path)
