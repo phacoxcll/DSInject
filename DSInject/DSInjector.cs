@@ -10,7 +10,7 @@ namespace DSInject
 {
     public class DSInjector
     {
-        public const string Release = "1.1.1 debug"; //CllVersionReplace "major.minor.revision stability"
+        public const string Release = "1.2 debug"; //CllVersionReplace "major.minor stability"
 
         public string BasePath;
         public string ShortName;
@@ -75,28 +75,10 @@ namespace DSInject
         {
             get
             {
-                ulong crc;
-
-                if (BaseIsLoaded)
-                    crc = _base.HashCRC32;
+                if (BaseIsLoaded && RomIsLoaded)
+                    return "00050000D5" + Rom.HashCRC16.ToString("X4") + _base.Index.ToString("X2");
                 else
-                    crc = Cll.Security.ComputeCRC32(new byte[] { }, 0, 0);
-
-                if (RomIsLoaded)
-                    crc += Rom.HashCRC32;
-                else
-                    crc += Cll.Security.ComputeCRC32(new byte[] { }, 0, 0);
-                crc >>= 1;
-
-                byte[] b = BitConverter.GetBytes((uint)crc);
-                ushort id = (ushort)((((b[3] << 8) + (b[2])) + ((b[1] << 8) + (b[0]))) >> 1);
-
-                int flags = 0;
-                flags |= IconImg.IsDefault ? 0 : 0x10;
-                flags |= BootTvImg.IsDefault ? 0 : 8;
-                flags |= BootDrcImg.IsDefault ? 0 : 4;
-
-                return "00050000D5" + id.ToString("X4") + ((byte)(flags)).ToString("X2");
+                    return "";
             }
         }
 
@@ -125,7 +107,13 @@ namespace DSInject
         {
             _base = GetLoadedBase();
             bool _continue = BaseIsLoaded;
-            Cll.Log.WriteLine("The base is ready: " + _continue.ToString());
+            if (_continue)
+            {
+                Cll.Log.WriteLine("Base info:");
+                Cll.Log.WriteLine(_base.ToString());
+            }
+            else
+                Cll.Log.WriteLine("The base is not loaded.");
 
             if (_continue)
                 _continue = InjectImages();
@@ -355,10 +343,14 @@ namespace DSInject
                 }
 
                 Cll.Log.WriteLine("Injecting ROM.");
+                Cll.Log.WriteLine("CRC16: " + Rom.HashCRC16.ToString("X4"));
+
                 Directory.CreateDirectory("base\\content\\0010\\rom");
 
+                Cll.Log.WriteLine("In: \"base\\content\\0010\\rom\\U" + Rom.ProductCodeVersion + ".nds\"");
                 File.Copy(RomPath, "base\\content\\0010\\rom\\U" + Rom.ProductCodeVersion + ".nds");
 
+                Cll.Log.WriteLine("Compressed in: \"base\\content\\0010\\rom.zip\"");
                 ZipFile.CreateFromDirectory("base\\content\\0010\\rom", "base\\content\\0010\\rom.zip");
 
                 if (Directory.Exists("base\\content\\0010\\rom"))
@@ -412,64 +404,38 @@ namespace DSInject
                 uint hash = Cll.Security.ComputeCRC32(fs);
                 fs.Close();
 
-                if (hash == VCNDS.BigBrainAcademy.HashCRC32)
-                    return VCNDS.BigBrainAcademy;
-                else if (hash == VCNDS.MarioKartDS.HashCRC32)
-                    return VCNDS.MarioKartDS;
-                else if (hash == VCNDS.BrainAge.HashCRC32)
-                    return VCNDS.BrainAge;
-                else if (hash == VCNDS.PartnersInTime.HashCRC32)
-                    return VCNDS.PartnersInTime;
-                else if (hash == VCNDS.StarFoxCommand.HashCRC32)
-                    return VCNDS.StarFoxCommand;
-                else if (hash == VCNDS.KirbySqueakSquad.HashCRC32)
-                    return VCNDS.KirbySqueakSquad;
-                else if (hash == VCNDS.FEShadowDragon.HashCRC32)
-                    return VCNDS.FEShadowDragon;
-                else if (hash == VCNDS.DKJungleClimber.HashCRC32)
-                    return VCNDS.DKJungleClimber;
-                else if (hash == VCNDS.WarioMasterOfDisguise.HashCRC32)
-                    return VCNDS.WarioMasterOfDisguise;
-                else if (hash == VCNDS.MarioVsDK2.HashCRC32)
-                    return VCNDS.MarioVsDK2;
-                else if (hash == VCNDS.MetroidPrimeHunters.HashCRC32)
-                    return VCNDS.MetroidPrimeHunters;
-                else if (hash == VCNDS.PhantomHourglass.HashCRC32)
-                    return VCNDS.PhantomHourglass;
-                else if (hash == VCNDS.SpiritTracks.HashCRC32)
-                    return VCNDS.SpiritTracks;
-                else if (hash == VCNDS.ACWildWorld.HashCRC32)
-                    return VCNDS.ACWildWorld;
-                else if (hash == VCNDS.SuperMario64DS.HashCRC32)
-                    return VCNDS.SuperMario64DS;
-                else if (hash == VCNDS.KirbyMassAttack.HashCRC32)
-                    return VCNDS.KirbyMassAttack;
-                else if (hash == VCNDS.NewSuperMarioBros.HashCRC32)
-                    return VCNDS.NewSuperMarioBros;
-                else if (hash == VCNDS.PokemonRangerU.HashCRC32)
-                    return VCNDS.PokemonRangerU;
-                else if (hash == VCNDS.PokemonRangerE.HashCRC32)
-                    return VCNDS.PokemonRangerE;
-                else if (hash == VCNDS.PokemonRangerJ.HashCRC32)
-                    return VCNDS.PokemonRangerJ;
-                else if (hash == VCNDS.MarioPartyDS.HashCRC32)
-                    return VCNDS.MarioPartyDS;
-                else if (hash == VCNDS.StyleSavvyU.HashCRC32)
-                    return VCNDS.StyleSavvyU;
-                else if (hash == VCNDS.MarioHoops3On3.HashCRC32)
-                    return VCNDS.MarioHoops3On3;
-                else if (hash == VCNDS.AdvanceWarsDualStrike.HashCRC32)
-                    return VCNDS.AdvanceWarsDualStrike;
-                else if (hash == VCNDS.PokemonRanger3J.HashCRC32)
-                    return VCNDS.PokemonRanger3J;
-                else if (hash == VCNDS.PokemonRanger3U.HashCRC32)
-                    return VCNDS.PokemonRanger3U;
-                else if (hash == VCNDS.StyleSavvyJ.HashCRC32)
-                    return VCNDS.StyleSavvyJ;
-                else
+                switch (hash)
                 {
-                    Cll.Log.WriteLine("The base is valid but was not defined in the program code.");
-                    return new VCNDS(hash, "", "**Unidentified**");
+                    case 0xCD2CFD15: return VCNDS.Title01;
+                    case 0x8071CB03: return VCNDS.Title02;
+                    case 0x9454C9D0: return VCNDS.Title03;
+                    case 0xE0207B48: return VCNDS.Title04;
+                    case 0xDBF04FD0: return VCNDS.Title05;
+                    case 0x70AB80AC: return VCNDS.Title06;
+                    case 0x99D0711F: return VCNDS.Title07;
+                    case 0xDCB3AB59: return VCNDS.Title08;
+                    case 0xEF47DDC4: return VCNDS.Title09;
+                    case 0x71110CE9: return VCNDS.Title10;
+                    case 0xEEEB4E36: return VCNDS.Title11;
+                    case 0x9566F967: return VCNDS.Title12;
+                    case 0x746411E4: return VCNDS.Title13;
+                    case 0x16B0D355: return VCNDS.Title14;
+                    case 0xDA012FA8: return VCNDS.Title15;
+                    case 0x76949547: return VCNDS.Title16;
+                    case 0x4489EF3E: return VCNDS.Title17;
+                    case 0x52DEFCB3: return VCNDS.Title18;
+                    case 0x595D3B65: return VCNDS.Title19;
+                    case 0x320B05E2: return VCNDS.Title20;
+                    case 0xFF82AF20: return VCNDS.Title21;
+                    case 0x70783B5F: return VCNDS.Title22;
+                    case 0x2FF26429: return VCNDS.Title23;
+                    case 0x816543BD: return VCNDS.Title24;
+                    case 0x563921C1: return VCNDS.Title25;
+                    case 0x52319B0A: return VCNDS.Title26;
+                    case 0xB8454E86: return VCNDS.Title27;
+                    default:
+                        Cll.Log.WriteLine("The base is valid but was not defined in the program code.");
+                        return new VCNDS(hash);
                 }
             }
             else
@@ -568,22 +534,6 @@ namespace DSInject
                 Cll.Log.WriteLine(path + "\\title.cert");
                 return false;
             }
-        }
-
-        public bool IsValidCode(string code)
-        {
-            if (code.Length == 4)
-            {
-                foreach (char c in code)
-                {
-                    if ((c < 'A' || c > 'Z') && (c < '0' || c > '9'))
-                        return false;
-                }
-            }
-            else
-                return false;
-
-            return true;
         }
 
         #endregion

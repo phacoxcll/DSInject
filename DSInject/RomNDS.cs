@@ -18,9 +18,9 @@ namespace DSInject
         { get { return TitleLine1 + (TitleLine2.Length > 0 ? ": " + TitleLine2 : ""); } }
         public char FormatCode
         { private set; get; }
-        public string Id
+        public string ShortId
         { private set; get; }
-        public char ContryCode
+        public char RegionCode
         { private set; get; }
         public byte Version
         { private set; get; }
@@ -28,55 +28,53 @@ namespace DSInject
         public Bitmap Icon
         { private set; get; }
         public string ProductCode
-        { get { return (FormatCode + Id + ContryCode).ToUpper(); } }
+        { get { return (FormatCode + ShortId + RegionCode).ToUpper(); } }
         public string ProductCodeVersion
         { get { return ProductCode + Version.ToString("X1"); } }
         public bool IsValid
         { private set; get; }
-        public uint HashCRC32
+        public ushort HashCRC16
         { private set; get; }
 
         public RomNDS(string filename)
+            : base()
         {
             Size = 0;
+            FormatCode = '?';
+            ShortId = "??";
+            RegionCode = '?';
+            Version = 0;
+            IsValid = false;
+            HashCRC16 = 0;
+
             TitleLine1 = "";
             TitleLine2 = "";
-            FormatCode = '?';
-            Id = "??";
-            ContryCode = '?';
-            Version = 0;
+            Icon = null;
 
             try
             {
-                Cll.Log.WriteLine("Validating ROM.");
+                Cll.Log.WriteLine("Validating NDS ROM.");
 
                 byte[] header = new byte[0x200];
                 FileStream fs = File.Open(filename, FileMode.Open);
-                Size = (int)fs.Length;            
+                //Size = (int)fs.Length;
                 fs.Read(header, 0, 0x200);
                 fs.Close();
 
-                ushort logoCrc = (ushort)((header[0x15D] << 8) + header[0x15C]);
-                ushort headerCrc = (ushort)((header[0x15F] << 8) + header[0x15E]);
-                ushort logoCrcComp = Cll.Security.ComputeCRC16_MODBUS(header, 0xC0, 0x9C);
-                ushort headerCrcComp = Cll.Security.ComputeCRC16_MODBUS(header, 0, 0x15E);
-
-                if (logoCrc == logoCrcComp && headerCrc == headerCrcComp)
+                if (Validate(header))
                 {
-                    IsValid = true;
+                    byte uniqueCode;
+                    byte[] shortTitle = new byte[2];
+                    byte region;
 
-                    byte formatCode;
-                    byte[] id = new byte[2];
-                    byte contryCode;
-
-                    formatCode = header[0x0C];
-                    id[0] = header[0x0D];
-                    id[1] = header[0x0E];
-                    contryCode = header[0x0F];
+                    uniqueCode = header[0x0C];
+                    shortTitle[0] = header[0x0D];
+                    shortTitle[1] = header[0x0E];
+                    region = header[0x0F];
                     Version = header[0x1E];
-                    FormatCode = (char)formatCode;
-                    Id = Encoding.ASCII.GetString(id);
-                    ContryCode = (char)contryCode;
+                    FormatCode = (char)uniqueCode;
+                    ShortId = Encoding.ASCII.GetString(shortTitle);
+                    RegionCode = (char)region;
 
                     byte[] offsetBytes = new byte[4];
                     byte[] bitmapBytes = new byte[0x200];
@@ -84,6 +82,7 @@ namespace DSInject
                     byte[] titleBytes = new byte[0x100];
 
                     fs = File.Open(filename, FileMode.Open);
+                    Size = (int)fs.Length;
                     fs.Seek(0x68, SeekOrigin.Begin);
                     fs.Read(offsetBytes, 0, 4);
                     int offset = (offsetBytes[3] << 24) + (offsetBytes[2] << 16) + (offsetBytes[1] << 8) + offsetBytes[0];
@@ -92,7 +91,7 @@ namespace DSInject
                     fs.Read(paletteBytes, 0, 0x20);
                     fs.Read(titleBytes, 0, 0x100);
                     fs.Position = 0;
-                    HashCRC32 = Cll.Security.ComputeCRC32(fs);
+                    HashCRC16 = Cll.Security.ComputeCRC16(fs);
                     fs.Close();
 
                     string title = Encoding.Unicode.GetString(titleBytes);
@@ -160,19 +159,32 @@ namespace DSInject
                     icon.UnlockBits(data);
 
                     Icon = icon;
-
-                    Cll.Log.WriteLine("The ROM is valid and its metadata has been loaded.");
+                    IsValid = true;
+                    Cll.Log.WriteLine("The NDS ROM is valid and its metadata has been loaded.");
                 }
                 else
                 {
-                    Size = 0;
-                    Cll.Log.WriteLine("Checksums in the ROM header are invalid.");
+                    //Size = 0;
+                    Cll.Log.WriteLine("Checksums in the NDS ROM header are invalid.");
                 }
             }
             catch
             {
-                Cll.Log.WriteLine("Error reading ROM.");
+                Cll.Log.WriteLine("Error reading NDS ROM.");
             }
+        }
+
+        private static bool Validate(byte[] header)
+        {
+            ushort logoCrc = (ushort)((header[0x15D] << 8) + header[0x15C]);
+            ushort headerCrc = (ushort)((header[0x15F] << 8) + header[0x15E]);
+            ushort logoCrcComp = Cll.Security.ComputeCRC16_MODBUS(header, 0xC0, 0x9C);
+            ushort headerCrcComp = Cll.Security.ComputeCRC16_MODBUS(header, 0, 0x15E);
+
+            if (logoCrc == logoCrcComp && headerCrc == headerCrcComp)
+                return true;
+
+            return false;
         }
 
         ~RomNDS()

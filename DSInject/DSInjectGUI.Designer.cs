@@ -632,7 +632,7 @@
             // checkBoxAskBase
             // 
             this.checkBoxAskBase.AutoSize = true;
-            this.checkBoxAskBase.Location = new System.Drawing.Point(8, 226);
+            this.checkBoxAskBase.Location = new System.Drawing.Point(8, 238);
             this.checkBoxAskBase.Name = "checkBoxAskBase";
             this.checkBoxAskBase.Size = new System.Drawing.Size(165, 17);
             this.checkBoxAskBase.TabIndex = 2;
